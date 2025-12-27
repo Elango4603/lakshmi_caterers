@@ -1,0 +1,290 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Lakshmi Caterings & Events</title>
+    <!-- Google Fonts: Inter -->
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&display=swap" rel="stylesheet">
+    <!-- Font Awesome for Icons -->
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css">
+    <!-- Custom CSS -->
+    <link rel="stylesheet" href="style.css">
+    <!-- SheetJS, jsPDF, docx libraries -->
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/jspdf/2.5.1/jspdf.umd.min.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/jspdf-autotable/3.5.25/jspdf.plugin.autotable.min.js"></script>
+    <script src="https://unpkg.com/docx@7.1.0/build/index.js"></script>
+    <script src="https://cdn.sheetjs.com/xlsx-latest/package/dist/xlsx.full.min.js"></script>
+</head>
+
+<body>
+
+    <!-- Login Section -->
+    <section id="login-section" class="login-container">
+        <!-- Background Video -->
+        <video autoplay muted loop id="bg-video">
+            <source src="https://videos.pexels.com/video-files/3195866/3195866-hd_1920_1080_25fps.mp4" type="video/mp4">
+            Your browser does not support the video tag.
+        </video>
+        <div class="video-overlay"></div>
+        <div class="login-content">
+            <div class="three-d-container">
+                <div class="cube">
+                    <div class="face front"><i class="fas fa-utensils"></i></div>
+                    <div class="face back"><i class="fas fa-bread-slice"></i></div>
+                    <div class="face right"><i class="fas fa-drumstick-bite"></i></div>
+                    <div class="face left"><i class="fas fa-pizza-slice"></i></div>
+                    <div class="face top"><i class="fas fa-cheese"></i></div>
+                    <div class="face bottom"><i class="fas fa-ice-cream"></i></div>
+                </div>
+            </div>
+            <h1>Lakshmi Caterings</h1>
+            <p class="login-subtitle">Premium Event Management</p>
+            <form id="login-form">
+                <div class="form-group">
+                    <input type="text" id="login-username" placeholder="Username" required>
+                </div>
+                <div class="form-group">
+                    <input type="password" id="login-password" placeholder="Password" required>
+                </div>
+                <button type="submit" class="btn primary-btn login-btn">Login <i
+                        class="fas fa-arrow-right"></i></button>
+            </form>
+            <div class="developer-credit-container">
+                <div class="glass-badge dark-mode-badge">
+                    <i class="fas fa-code"></i> Developed by <strong>Elango</strong>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Main App View (Hidden by default) -->
+    <div id="main-app-view" class="hidden">
+        <!-- Sticky Header -->
+        <header class="app-header">
+            <div class="logo-container">
+                <img src="logo.png" alt="Lakshmi Caterings Logo" class="logo-img">
+                <h1>Lakshmi Caterings & Events</h1>
+            </div>
+            <div class="header-actions">
+                <button id="logout-btn" class="btn text-btn logout-btn"><i class="fas fa-sign-out-alt"></i>
+                    Logout</button>
+                <button id="mobile-menu-btn" class="mobile-menu-btn"><i class="fas fa-bars"></i></button>
+            </div>
+        </header>
+
+        <!-- Navigation -->
+        <nav class="main-nav" id="main-nav">
+
+            <a href="#" class="nav-link active" data-target="items-section"><i class="fas fa-utensils"></i> Item
+                Master</a>
+            <a href="#" class="nav-link" data-target="menus-section"><i class="fas fa-book-open"></i> Menu Master</a>
+            <a href="#" class="nav-link" data-target="order-section"><i class="fas fa-cart-plus"></i> New Order</a>
+            <a href="#" class="nav-link" data-target="reports-section"><i class="fas fa-chart-line"></i> Revenue</a>
+        </nav>
+
+        <!-- Main Content Area -->
+        <main class="app-container">
+
+            <!-- Item Master Section -->
+            <section id="items-section" class="app-section active-section">
+                <div class="section-header">
+                    <h2><i class="fas fa-carrot"></i> Item Master</h2>
+                    <p>Manage individual food items here.</p>
+                </div>
+                <div class="card input-card">
+                    <div class="form-group">
+                        <label for="item-name-input">Item Name</label>
+                        <div class="input-row">
+                            <input type="text" id="item-name-input" placeholder="e.g., Chicken Biryani, Paneer Tikka">
+                            <button id="add-item-btn" class="btn primary-btn"><i class="fas fa-plus"></i> Add
+                                Item</button>
+                            <button id="update-item-btn" class="btn secondary-btn hidden"><i class="fas fa-save"></i>
+                                Update</button>
+                        </div>
+                    </div>
+                </div>
+                <div class="card list-card">
+                    <h3>Current Items</h3>
+                    <div id="items-list" class="items-grid">
+                        <!-- Items will be injected here -->
+                        <div class="empty-state">No items added yet.</div>
+                    </div>
+                </div>
+            </section>
+
+            <!-- Menu Master Section -->
+            <section id="menus-section" class="app-section">
+                <div class="section-header">
+                    <h2><i class="fas fa-clipboard-list"></i> Menu Master</h2>
+                    <p>Create and manage menu packages.</p>
+                </div>
+                <div class="grid-layout">
+                    <div class="card input-card">
+                        <div class="form-group">
+                            <label for="menu-name">Menu Name</label>
+                            <input type="text" id="menu-name" placeholder="e.g., Wedding Feast Standard">
+                        </div>
+                        <div class="form-group">
+                            <label for="menu-price">Price per Plate (₹)</label>
+                            <input type="number" id="menu-price" placeholder="0.00">
+                        </div>
+                        <div class="form-group">
+                            <label>Select Items</label>
+                            <p class="text-sm text-muted mb-2">Click items to add/remove:</p>
+                            <div id="menu-item-selector" class="chips-container">
+                                <!-- Chips injected here -->
+                                <p class="text-muted">Add items in Item Master first.</p>
+                            </div>
+                        </div>
+                        <div class="form-actions">
+                            <button id="save-menu-btn" class="btn primary-btn"><i class="fas fa-save"></i> Save
+                                Menu</button>
+                            <button id="cancel-menu-edit-btn" class="btn text-btn hidden">Cancel</button>
+                        </div>
+                    </div>
+                    <div class="card list-card">
+                        <h3>Available Menus</h3>
+                        <div id="menus-list" class="menus-list">
+                            <!-- Menus injected here -->
+                        </div>
+                    </div>
+                </div>
+            </section>
+
+            <!-- Order Section -->
+            <section id="order-section" class="app-section">
+                <div class="section-header">
+                    <h2><i class="fas fa-file-invoice"></i> Create Order</h2>
+                </div>
+                <div class="grid-layout">
+                    <div class="card order-form-card">
+                        <div class="form-group">
+                            <label for="client-name">Client Name</label>
+                            <input type="text" id="client-name" placeholder="Client Name">
+                        </div>
+                        <div class="form-group">
+                            <label for="client-phone">Phone Number</label>
+                            <input type="tel" id="client-phone" placeholder="Mobile Number">
+                        </div>
+                        <div class="form-group">
+                            <label for="client-address">Address</label>
+                            <textarea id="client-address" rows="2" placeholder="Delivery/Event Address"></textarea>
+                        </div>
+
+                        <div class="form-group">
+                            <label for="menu-select">Select Menu</label>
+                            <select id="menu-select">
+                                <option value="">-- Select a Menu --</option>
+                            </select>
+                        </div>
+                        <div class="form-group">
+                            <label for="order-quantity">Quantity (Plates)</label>
+                            <input type="number" id="order-quantity" value="1" min="1">
+                        </div>
+
+                        <!-- Cart Preview inside Form -->
+                        <div id="cart-preview" class="cart-preview hidden">
+                            <div class="cart-header">
+                                <h4 id="cart-menu-name">Menu Name</h4>
+                                <span id="cart-total-price" class="price-tag">₹0</span>
+                            </div>
+                            <div class="cart-details">
+                                <p><strong>Price/Plate:</strong> ₹<span id="cart-price-plate">0</span></p>
+                                <p><strong>Quantity:</strong> <span id="cart-qty-display">0</span></p>
+                                <div class="cart-items-list">
+                                    <strong>Includes:</strong>
+                                    <ul id="cart-items-ul"></ul>
+                                </div>
+                            </div>
+                        </div>
+
+                        <div class="form-actions">
+                            <button id="confirm-order-btn" class="btn success-btn"><i class="fas fa-check-circle"></i>
+                                Confirm Order</button>
+                            <button id="clear-order-btn" class="btn text-btn">Clear</button>
+                        </div>
+                    </div>
+
+                    <!-- Export Actions -->
+                    <div class="card actions-card">
+                        <h3>Actions</h3>
+                        <p class="text-muted">Generate documents for the current order.</p>
+                        <div class="action-buttons">
+                            <button id="export-pdf-btn" class="btn action-btn pdf-btn" disabled><i
+                                    class="fas fa-file-pdf"></i> PDF Invoice</button>
+                            <button id="export-word-btn" class="btn action-btn word-btn" disabled><i
+                                    class="fas fa-file-word"></i> Word Doc</button>
+                            <button id="export-excel-btn" class="btn action-btn excel-btn" disabled><i
+                                    class="fas fa-file-excel"></i> Export Excel</button>
+                        </div>
+                    </div>
+                </div>
+            </section>
+
+            <!-- Reports (Revenue) Section -->
+            <section id="reports-section" class="app-section">
+                <div class="section-header">
+                    <h2>Revenue Report</h2>
+                    <p>Monthly revenue overview.</p>
+                </div>
+                <div class="card">
+                    <div class="filter-bar" style="margin-bottom: 20px; display: flex; align-items: center; gap: 10px;">
+                        <label for="month-filter"><strong>Filter by Month:</strong></label>
+                        <input type="month" id="month-filter">
+                    </div>
+
+                    <div class="revenue-summary">
+                        <div class="summary-item">
+                            <span class="label">Total Revenue</span>
+                            <span class="value" id="total-revenue-display">₹0</span>
+                        </div>
+                        <div class="summary-item">
+                            <span class="label">Total Orders</span>
+                            <span class="value" id="total-orders-display">0</span>
+                        </div>
+                    </div>
+                    <div class="table-responsive">
+                        <table class="data-table">
+                            <thead>
+                                <tr>
+                                    <th>Date</th>
+                                    <th>Client</th>
+                                    <th>Phone</th>
+                                    <th>Menu</th>
+                                    <th>Qty</th>
+                                    <th>Total</th>
+                                    <th>Receipt</th>
+                                </tr>
+                            </thead>
+                            <tbody id="revenue-table-body">
+                                <!-- Rows injected -->
+                            </tbody>
+                        </table>
+                    </div>
+                </div>
+            </section>
+
+        </main>
+
+        <footer class="app-footer">
+            <div class="glass-badge">
+                <i class="fas fa-code"></i> Developed by <strong>Elango</strong>
+            </div>
+        </footer>
+    </div>
+    <!-- End Main App View -->
+
+    <!-- Loader -->
+    <div id="global-loader" class="loader-overlay hidden">
+        <div class="spinner"></div>
+    </div>
+    <div id="toast" class="toast hidden">Action Successful</div>
+
+    <script src="script.js"></script>
+</body>
+
+</html>
